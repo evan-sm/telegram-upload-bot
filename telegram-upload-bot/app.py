@@ -16,6 +16,23 @@ logger = logging.getLogger(__name__)
 
 # Define a few command handlers. These usually take the two arguments bot and
 # update. Error handlers also receive the raised TelegramError object in error.
+
+
+def dl(url):
+    print ("Downloading file:%s" % url)
+    try:
+        r = requests.get(url)
+        # open method to open a file on your system and write the contents
+        with open('/tmp/tg.tmp', 'wb') as f:
+            f.write(r.content)
+        print(r.status_code)
+    except Exception as e:
+        print(e.__doc__)
+        print(e)
+        logging.error(traceback.format_exc())
+    return
+
+
 def start(bot, update):
     """Send a message when the command /start is issued."""
     update.message.reply_text('Hi!')
@@ -32,7 +49,12 @@ def echo(bot, update):
             print('twitch clip')
             update.message.reply_text('twitch clip!')
         else:
-            subprocess.check_call(['/home/wmw/app/youtubeuploader/upload.sh', update.message.text])
+            dl(update.message.text)
+            if '.mp4' or '.m4v' or '.mov' in update.message.text:
+                print('mp4 m4v mov file')
+                subprocess.check_call('tg -W -e "send_file user#144149077 /tmp/tg.tmp"')
+            #subprocess.check_call(['wget  -O /tmp/tg.tmp ', update.message.text])
+            #subprocess.check_call(['/home/wmw/app/youtubeuploader/upload.sh', update.message.text])
     except Exception as e:
         print(e.__doc__)
         print(e)
