@@ -25,7 +25,7 @@ def dl(url):
     print ("Downloading file:%s" % url)
     try:
         s = url.split("/")
-        print(s[-1])
+        #print(s[-1])
         filename = s[-1]
         type = s[-1].split('.')
         name = type[-2]
@@ -34,7 +34,7 @@ def dl(url):
         r = requests.get(url)
         print(r.headers)
         # open method to open a file on your system and write the contents
-        print('/tmp/%s' % filename)
+        #print('/tmp/%s' % filename)
         with open('/tmp/%s' % filename, 'wb') as f:
             f.write(r.content)
         print(r.status_code)
@@ -61,17 +61,17 @@ def echo(bot, update):
             update.message.reply_text('twitch clip!')
             s = update.message.text.split("/")
             clipname = s[-1]
-            print(clipname)
+            #print(clipname)
             r = "https://clips.twitch.tv/api/v2/clips/{}/status".format(clipname)
-            print(r)
+            #print(r)
             r = requests.get(r)
             js = json.loads(r.text)
             url = js['quality_options'][0]['source']
             link = 'https://clips.twitch.tv/' + clipname
             filename, type = dl(url)
             command = os.popen('tg -W -e "send_video user#144149077 /tmp/%s %s"' % (filename, link))
-            print(command.read())
-            print(command.close())
+            #print(command.read())
+            #print(command.close())
         else:
             s = update.message.text.split("/")
             print(s[-1])
@@ -79,22 +79,22 @@ def echo(bot, update):
             type = s[-1].split('.')
             name = type[-2]
             type = type[-1]
-            print(type)
-            print(name)
+            #print(type)
+            #print(name)
             filename, type = dl(update.message.text)
-            print('print r')
-            print(type)
+            #print('print r')
+            #print(type)
             print(filename)
             if 'mp4' or 'm4v' or 'mov' in type:
                 print('send_video')
                 command = os.popen('tg -W -e "send_video user#144149077 /tmp/%s"' % filename)
-                print(command.read())
-                print(command.close())
+                #print(command.read())
+                #print(command.close())
             if 'jpg' or 'png' or 'jpeg' in type:
                 print('send_photo')
                 command = os.popen('tg -W -e "send_photo user#144149077 /tmp/%s"' % filename)
-                print(command.read())
-                print(command.close())
+                #print(command.read())
+                #print(command.close())
                 #subprocess.check_call(['wget  -O /tmp/tg.tmp ', update.message.text])
                 #subprocess.check_call(['/home/wmw/app/youtubeuploader/upload.sh', update.message.text])
 
