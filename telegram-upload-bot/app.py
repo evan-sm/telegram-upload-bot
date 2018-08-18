@@ -45,14 +45,14 @@ def dl(url):
     return filename, type
 
 
-def start(bot, update):
-    """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
+# def start(bot, update):
+#     """Send a message when the command /start is issued."""
+#     update.message.reply_text('Hi!')
 
 
-def help(bot, update):
-    """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
+# def help(bot, update):
+#     """Send a message when the command /help is issued."""
+#     update.message.reply_text('Help!')
 
 
 def echo(bot, update):
@@ -123,8 +123,8 @@ def main():
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help))
+    # dp.add_handler(CommandHandler("start", start))
+    # dp.add_handler(CommandHandler("help", help))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.chat(144149077) & Filters.text, echo))
